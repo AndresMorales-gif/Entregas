@@ -41,7 +41,7 @@ class ComandoControladorUsuarioTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(usuario)))
                 .andExpect(status().isOk())
-                .andExpect(content().json("{'valor': 2}"));
+                .andExpect(content().json("{\"valor\": 2}"));
     }
 
     @Test

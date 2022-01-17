@@ -9,6 +9,6 @@ public class DtoZona {
 
     private Long id;
     private String nombre;
-    private String diasEntrega;
+    private Integer diasEntrega;
 
 }

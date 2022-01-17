@@ -12,7 +12,7 @@ public class MapeoZona implements RowMapper<DtoZona>, MapperResult {
     public DtoZona mapRow(ResultSet resultSet, int rowNum) throws SQLException {
         long id = resultSet.getLong("id");
         String nombre = resultSet.getString("nombre");
-        String dias = resultSet.getString("dias_entrega");
+        int dias = resultSet.getInt("dias_entrega");
         return new DtoZona(id, nombre, dias);
     }
 }
