@@ -2,7 +2,7 @@ package com.ceiba.usuario.consulta;
 
 import java.util.List;
 
-import com.ceiba.usuario.puerto.dao.DaoUsuario;
+import com.ceiba.usuario.puerto.dao.DaoUsuarioListar;
 import org.springframework.stereotype.Component;
 
 import com.ceiba.usuario.modelo.dto.DtoUsuario;
@@ -10,11 +10,11 @@ import com.ceiba.usuario.modelo.dto.DtoUsuario;
 @Component
 public class ManejadorListarUsuarios {
 
-    private final DaoUsuario daoUsuario;
+    private final DaoUsuarioListar daoUsuarioListar;
 
-    public ManejadorListarUsuarios(DaoUsuario daoUsuario){
-        this.daoUsuario = daoUsuario;
+    public ManejadorListarUsuarios(DaoUsuarioListar daoUsuarioListar){
+        this.daoUsuarioListar = daoUsuarioListar;
     }
 
-    public List<DtoUsuario> ejecutar(){ return this.daoUsuario.listar(); }
+    public List<DtoUsuario> ejecutar(){ return this.daoUsuarioListar.listar(); }
 }

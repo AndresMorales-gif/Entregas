@@ -15,12 +15,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ServicioCrearUsuarioTest {
 
     @Test
-    @DisplayName("Deberia lanzar una exepecion cuando la longitud de la clave sea menor a 4")
+    @DisplayName("Deberia lanzar una exepecion cuando la longitud de la clave sea menor a 6")
     void deberiaLanzarUnaExepcionCuandoLaLongitudDeLaClaveSeaMenorACuatro() {
         // arrange
-        UsuarioTestDataBuilder usuarioTestDataBuilder = new UsuarioTestDataBuilder().conClave("124");
+        UsuarioTestDataBuilder usuarioTestDataBuilder = new UsuarioTestDataBuilder().conIdDocumento("124");
         // act - assert
-        BasePrueba.assertThrows(usuarioTestDataBuilder::build, ExcepcionLongitudValor.class, "La clave debe tener una longitud mayor o igual a 4");
+        BasePrueba.assertThrows(usuarioTestDataBuilder::build, ExcepcionLongitudValor.class, "El número de documento debe tener una longitud mayor o igual a 6");
     }
 
     @Test

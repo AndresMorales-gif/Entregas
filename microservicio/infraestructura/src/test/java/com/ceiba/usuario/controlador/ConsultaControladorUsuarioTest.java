@@ -41,5 +41,31 @@ class ConsultaControladorUsuarioTest {
 
     }
 
+    @Test
+    @DisplayName("Deberia traer usuario por Documento")
+    void deberiaTraerUsuarioPorDocumento() throws Exception {
+        // arrange
+        // act - assert
+        mocMvc.perform(get("/usuarios/123456")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.nombre", is("test")))
+                .andExpect(jsonPath("$.id", is(1)));
+
+    }
+
+    @Test
+    @DisplayName("Deberia generar error por usuario no encontrado")
+    void deberiaGenerarErrorPorUsuarioNoEncontrado() throws Exception {
+        // arrange
+        // act - assert
+        mocMvc.perform(get("/usuarios/623456")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.mensaje", is("El usuario no existe en el sistema")))
+                .andExpect(jsonPath("$.nombreExcepcion", is("ExcepcionNoEncontrado")));
+
+    }
+
 
 }

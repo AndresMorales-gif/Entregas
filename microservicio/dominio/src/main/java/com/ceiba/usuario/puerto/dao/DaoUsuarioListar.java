@@ -4,7 +4,7 @@ import com.ceiba.usuario.modelo.dto.DtoUsuario;
 
 import java.util.List;
 
-public interface DaoUsuario {
+public interface DaoUsuarioListar {
 
     /**
      * Permite listar usuarios

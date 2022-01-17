@@ -9,12 +9,12 @@ public class ComandoUsuarioTestDataBuilder {
 
     private Long id;
     private String nombre;
-    private String clave;
+    private String idDocumento;
     private LocalDateTime fecha;
 
     public ComandoUsuarioTestDataBuilder() {
         nombre = UUID.randomUUID().toString();
-        clave = "1234";
+        idDocumento = "123465";
         fecha = LocalDateTime.now();
     }
 
@@ -24,6 +24,6 @@ public class ComandoUsuarioTestDataBuilder {
     }
 
     public ComandoUsuario build() {
-        return new ComandoUsuario(id,nombre, clave,fecha);
+        return new ComandoUsuario(id,nombre, idDocumento);
     }
 }
