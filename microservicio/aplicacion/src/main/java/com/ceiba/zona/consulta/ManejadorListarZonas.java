@@ -1,7 +1,7 @@
 package com.ceiba.zona.consulta;
 
 import com.ceiba.zona.modelo.dto.DtoZona;
-import com.ceiba.zona.puerto.dao.DaoZona;
+import com.ceiba.zona.puerto.dao.DaoZonaListar;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -9,11 +9,11 @@ import java.util.List;
 @Component
 public class ManejadorListarZonas {
 
-    private final DaoZona daoZona;
+    private final DaoZonaListar daoZonaListar;
 
-    public ManejadorListarZonas(DaoZona daoZona){
-        this.daoZona = daoZona;
+    public ManejadorListarZonas(DaoZonaListar daoZonaListar){
+        this.daoZonaListar = daoZonaListar;
     }
 
-    public List<DtoZona> ejecutar(){ return this.daoZona.listar(); }
+    public List<DtoZona> ejecutar(){ return this.daoZonaListar.listar(); }
 }

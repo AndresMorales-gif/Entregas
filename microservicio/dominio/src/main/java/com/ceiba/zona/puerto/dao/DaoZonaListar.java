@@ -4,7 +4,7 @@ import com.ceiba.zona.modelo.dto.DtoZona;
 
 import java.util.List;
 
-public interface DaoZona {
+public interface DaoZonaListar {
 
     /**
      * Permite listar zonas

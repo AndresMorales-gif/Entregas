@@ -13,7 +13,21 @@ create table zona (
  primary key (id)
 );
 
+create table envio (
+  id int(11) not null auto_increment,
+  remitente int(11) not null,
+  destinatario int(11) not null,
+  zona int(11) not null,
+  envio_plus bit not null,
+  peso_carga float(11) not null,
+  fecha_entrega datetime null,
+  precio int(20) not null,
+  fecha_creacion datetime null,
+  primary key (id)
+);
+
 insert into zona (nombre, dias_entrega) values ('Fontibon', 5);
 insert into zona (nombre, dias_entrega) values ('Usaquen', 8);
 insert into zona (nombre, dias_entrega) values ('Soacha', 15);
 insert into zona (nombre, dias_entrega) values ('La estrella', 11);
+insert into zona (nombre, dias_entrega) values ('Teusaquillo', 2);

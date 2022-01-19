@@ -30,7 +30,7 @@ public interface RepositorioUsuario {
     boolean existe(String idDocumento);
 
     /**
-     * Permite validar si existe un usuario con un nombre excluyendo un id
+     * Permite validar si existe un usuario el id
      * @return si existe o no
      */
     boolean existePorId(Long id);

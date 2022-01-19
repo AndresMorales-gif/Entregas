@@ -1,0 +1,2 @@
+insert into envio (remitente, destinatario, zona, envio_plus, peso_carga, fecha_entrega, precio, fecha_creacion)
+values (:remitente, :destinatario, :zona, :envioPlus, :pesoCarga, :fechaEntrega, :precio, :fechaCreacion)
