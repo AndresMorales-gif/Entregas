@@ -7,10 +7,9 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class DtoUsuarioTest {
+class DtoUsuarioTest {
 
     @Test
     @DisplayName("Deberia crear correctamente el usuario")
@@ -21,7 +20,7 @@ public class DtoUsuarioTest {
         assertEquals(1L, usuario.getId());
         assertEquals("testUsuario", usuario.getNombre());
         assertEquals("123456", usuario.getIdDocumento());
-        assertTrue(usuario.getFechaCreacion() != null);
+        assertNotNull(usuario.getFechaCreacion());
     }
 
 }

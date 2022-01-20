@@ -1,7 +1,6 @@
 package com.ceiba.envio.consulta;
 
 import com.ceiba.envio.modelo.dto.DtoEnvio;
-import com.ceiba.envio.puerto.dao.DaoEnvioListarEntreFechas;
 import com.ceiba.envio.servicio.ServicioListarEnvios;
 import org.springframework.stereotype.Component;
 

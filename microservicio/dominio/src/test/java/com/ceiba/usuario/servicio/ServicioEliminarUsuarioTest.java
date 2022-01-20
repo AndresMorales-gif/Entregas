@@ -5,7 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-public class ServicioEliminarUsuarioTest {
+class ServicioEliminarUsuarioTest {
 
     @Test
     @DisplayName("Deberia eliminar el usuario llamando al repositorio")

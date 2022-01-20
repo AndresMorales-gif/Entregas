@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+import static com.ceiba.dominio.ValidadorArgumento.validarDiferente;
 import static com.ceiba.dominio.ValidadorArgumento.validarObligatorio;
 
 @Getter
@@ -15,6 +16,7 @@ public class Envio {
     private static final String SE_DEBE_INGRESAR_EL_DESTINATARIO = "Se debe ingresar el destinatario del envio";
     private static final String SE_DEBE_INGRESAR_LA_ZONA = "Se debe ingresar la zona del envio";
     private static final String SE_DEBE_INGRESAR_EL_PESO_DE_LA_CARGA = "Se debe ingresar el peso de la carga del envio";
+    private static final String EL_REMITENTE_DESTINATARIO_IGUAL = "El remitente no puede ser el mismo que el destinatario";
 
     private Long id;
     private Long remitente;
@@ -31,6 +33,7 @@ public class Envio {
         validarObligatorio(destinatario, SE_DEBE_INGRESAR_EL_DESTINATARIO);
         validarObligatorio(zona, SE_DEBE_INGRESAR_LA_ZONA);
         validarObligatorio(pesoCarga, SE_DEBE_INGRESAR_EL_PESO_DE_LA_CARGA);
+        validarDiferente(remitente, destinatario, EL_REMITENTE_DESTINATARIO_IGUAL);
 
         if (envioPlus == null) {
             envioPlus = Boolean.FALSE;

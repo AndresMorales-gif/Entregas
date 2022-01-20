@@ -16,6 +16,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -41,7 +42,25 @@ class ComandoControladorUsuarioTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(usuario)))
                 .andExpect(status().isOk())
-                .andExpect(content().json("{\"valor\": 2}"));
+                .andExpect(content().json("{\"valor\": 3}"));
+    }
+
+    @Test
+    @DisplayName("Deberia traer error al crear un usuario por duplicidad")
+    void deberiaGenerarErrorAlCrearUnUsuarioPorDuplicidad() throws Exception{
+        // arrange
+        ComandoUsuario usuario = new ComandoUsuarioTestDataBuilder().conIdDocumento("555545").build();
+        // act - assert
+        mocMvc.perform(post("/usuarios")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(usuario)))
+                .andExpect(status().isOk());
+        mocMvc.perform(post("/usuarios")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(usuario)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.nombreExcepcion", is("ExcepcionDuplicidad")))
+                .andExpect(jsonPath("$.mensaje", is("El usuario ya existe en el sistema")));
     }
 
     @Test
@@ -71,7 +90,7 @@ class ComandoControladorUsuarioTest {
         mocMvc.perform(get("/usuarios")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(0)));
+                .andExpect(jsonPath("$", hasSize(1)));
     }
 
 }

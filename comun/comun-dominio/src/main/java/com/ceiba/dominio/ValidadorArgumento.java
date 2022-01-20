@@ -39,8 +39,8 @@ public class ValidadorArgumento {
         }
     }
 
-    public static void validarIgual(Double valor, Double valorEsperado, String mensaje) {
-        if (!valor.equals(valorEsperado)) {
+    public static void validarDiferente(Long valorUno, Long valorDos, String mensaje) {
+        if (valorUno.equals(valorDos)) {
             throw new ExcepcionValorInvalido(mensaje);
         }
     }

@@ -17,6 +17,9 @@ public class ServicioListarEnvios {
 
     private static final Long DIAS_EN_PROCESO = 3L;
 
+    private LocalDateTime fechaInicio;
+    private LocalDateTime fechaFinal;
+
     private final DaoEnvioListarEntreFechas daoEnvioListarEntreFechas;
 
     public ServicioListarEnvios(DaoEnvioListarEntreFechas daoEnvioListarEntreFechas) {
@@ -24,11 +27,14 @@ public class ServicioListarEnvios {
     }
 
     public List<DtoEnvio> ejecutar(Long remitente, String tipoConsulta) {
+        validarFechas(tipoConsulta);
+        return this.daoEnvioListarEntreFechas.listarEntreFechas(remitente, this.fechaInicio, this.fechaFinal);
+    }
+
+    private void validarFechas(String tipoConsulta) {
         if (tipoConsulta == null) {
             tipoConsulta = PENDIENTES;
         }
-        LocalDateTime fechaInicio = null;
-        LocalDateTime fechaFinal = null;
         switch (tipoConsulta) {
             case PENDIENTES:
                 fechaInicio = LocalDateTime.now().plusDays(DIAS_EN_PROCESO);
@@ -43,6 +49,5 @@ public class ServicioListarEnvios {
             default:
                 throw new ExcepcionValorInvalido(VALOR_CONSULTA_INVALIDO);
         }
-        return this.daoEnvioListarEntreFechas.listarEntreFechas(remitente, fechaInicio, fechaFinal);
     }
 }

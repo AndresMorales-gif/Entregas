@@ -1,6 +1,5 @@
-package com.ceiba.envio.servicio;
+package com.ceiba.envio.servicio.base;
 
-import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
 import com.ceiba.dominio.excepcion.ExcepcionNoEncontrado;
 import com.ceiba.envio.modelo.entidad.Envio;
 import com.ceiba.usuario.puerto.repositorio.RepositorioUsuario;
@@ -10,13 +9,14 @@ import com.ceiba.zona.puerto.dao.DaoZonaPorId;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 
-public class ServicioBase {
+public class ServicioBaseEnvio {
 
-    private static final String EL_REMITENTE_DESTINATARIO_IGUAL = "El remitente no puede ser el mismo que el destinatario";
     private static final String EL_DATO_NO_EXISTE_EN_EL_SISTEMA = "%s no existe en el sistema";
     private static final String LA_ZONA = "La zona";
+    protected static final String EL_DESTINATARIO = "El destinatario";
+    protected static final String EL_REMITENTE = "El remitente";
 
-    private static final int COMPARACION_IGUAL = 0;
+    protected static final int COMPARACION_IGUAL = 0;
     private static final Integer PRECIO_X_KILO = 10;
     private static final Double PORCENTAJE_ENVIO_PLUS = 1.3;
     private static final Integer DIVIDIR_TIEMPO_PLUS = 2;
@@ -27,15 +27,9 @@ public class ServicioBase {
     private final RepositorioUsuario repositorioUsuario;
     private  final DaoZonaPorId daoZonaPorId;
 
-    public ServicioBase(RepositorioUsuario repositorioUsuario, DaoZonaPorId daoZonaPorId) {
+    public ServicioBaseEnvio(RepositorioUsuario repositorioUsuario, DaoZonaPorId daoZonaPorId) {
         this.repositorioUsuario = repositorioUsuario;
         this.daoZonaPorId = daoZonaPorId;
-    }
-
-    protected void validarDestinatarioDiferenteRemitente(Envio envio) {
-        if (envio.getDestinatario().compareTo(envio.getRemitente()) == COMPARACION_IGUAL) {
-            throw new ExcepcionDuplicidad(EL_REMITENTE_DESTINATARIO_IGUAL);
-        }
     }
 
     protected void validarExistenciaPreviaUsuario(Long idUsuario, String usuario) {
@@ -55,11 +49,12 @@ public class ServicioBase {
 
     protected void calcularFechaEntrega(DtoZona zona, Envio envio) {
         Integer diasEntrega = zona.getDiasEntrega();
-        if (envio.getEnvioPlus()) {
+        if (Boolean.TRUE.equals(envio.getEnvioPlus())) {
             diasEntrega += CIFRA_REDONDEAR_ARRIBA;
             diasEntrega = diasEntrega / DIVIDIR_TIEMPO_PLUS;
         }
-        LocalDateTime fechaEntrega = LocalDateTime.now().plusDays(diasEntrega);
+        LocalDateTime fechaEntrega = LocalDateTime.now().plusDays(diasEntrega)
+                .withHour(8).withMinute(0).withSecond(0).withNano(0);
         if (fechaEntrega.getDayOfWeek() == DayOfWeek.SATURDAY) {
             fechaEntrega = fechaEntrega.plusDays(DOS_DIAS);
         }
@@ -70,8 +65,8 @@ public class ServicioBase {
     }
 
     protected void calcularPrecio(Envio envio) {
-        double precio = (double) (envio.getPesoCarga() * PRECIO_X_KILO);
-        if (envio.getEnvioPlus()) {
+        double precio = (envio.getPesoCarga() * PRECIO_X_KILO);
+        if (Boolean.TRUE.equals(envio.getEnvioPlus())) {
             precio = precio * PORCENTAJE_ENVIO_PLUS;
         }
         envio.setPrecio(precio);

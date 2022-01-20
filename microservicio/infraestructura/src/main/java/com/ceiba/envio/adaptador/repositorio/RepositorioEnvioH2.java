@@ -4,6 +4,7 @@ import com.ceiba.envio.modelo.entidad.Envio;
 import com.ceiba.envio.puerto.repositorio.RepositorioEnvio;
 import com.ceiba.infraestructura.jdbc.CustomNamedParameterJdbcTemplate;
 import com.ceiba.infraestructura.jdbc.sqlstatement.SqlStatement;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -14,17 +15,12 @@ public class RepositorioEnvioH2 implements RepositorioEnvio {
     @SqlStatement(namespace="envio", value="crear")
     private static String sqlCrear;
 
-    @SqlStatement(namespace="usuario", value="actualizar")
+    @SqlStatement(namespace="envio", value="actualizar")
     private static String sqlActualizar;
 
-    @SqlStatement(namespace="usuario", value="eliminar")
+    @SqlStatement(namespace="envio", value="eliminar")
     private static String sqlEliminar;
 
-    @SqlStatement(namespace="usuario", value="existe")
-    private static String sqlExiste;
-
-    @SqlStatement(namespace="usuario", value="existePorId")
-    private static String sqlExistePorId;
 
     public RepositorioEnvioH2(CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate) {
         this.customNamedParameterJdbcTemplate = customNamedParameterJdbcTemplate;
@@ -37,16 +33,14 @@ public class RepositorioEnvioH2 implements RepositorioEnvio {
 
     @Override
     public void actualizar(Envio envio) {
-
+        this.customNamedParameterJdbcTemplate.actualizar(envio, sqlActualizar);
     }
 
     @Override
     public void eliminar(Long id) {
-
+        MapSqlParameterSource paramSource = new MapSqlParameterSource();
+        paramSource.addValue("id", id);
+        this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().update(sqlEliminar, paramSource);
     }
 
-    @Override
-    public boolean existe(Long id) {
-        return false;
-    }
 }

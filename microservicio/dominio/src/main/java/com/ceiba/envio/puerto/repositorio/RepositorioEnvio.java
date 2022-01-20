@@ -23,9 +23,4 @@ public interface RepositorioEnvio {
      */
     void eliminar(Long id);
 
-    /**
-     * Permite validar si existe un envio con el id
-     * @return si existe o no
-     */
-    boolean existe(Long id);
 }

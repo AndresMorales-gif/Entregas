@@ -1,9 +1,9 @@
 package com.ceiba.configuracion;
 
 import com.ceiba.envio.puerto.dao.DaoEnvioListarEntreFechas;
+import com.ceiba.envio.puerto.dao.DaoEnvioPorId;
 import com.ceiba.envio.puerto.repositorio.RepositorioEnvio;
-import com.ceiba.envio.servicio.ServicioCrearEnvio;
-import com.ceiba.envio.servicio.ServicioListarEnvios;
+import com.ceiba.envio.servicio.*;
 import com.ceiba.usuario.puerto.dao.DaoUsuarioPorDocumento;
 import com.ceiba.usuario.puerto.repositorio.RepositorioUsuario;
 import com.ceiba.usuario.servicio.ServicioActualizarUsuario;
@@ -43,8 +43,23 @@ public class BeanServicio {
     }
 
     @Bean
+    public ServicioActualizarEnvio servicioActualizarEnvio(RepositorioEnvio repositorioEnvio, RepositorioUsuario repositorioUsuario, DaoZonaPorId daoZonaPorId, DaoEnvioPorId daoEnvioPorId) {
+        return new ServicioActualizarEnvio(repositorioEnvio, repositorioUsuario, daoZonaPorId, daoEnvioPorId);
+    }
+
+    @Bean
+    public ServicioEliminarEnvio servicioEliminarEnvio(RepositorioEnvio repositorioEnvio, DaoEnvioPorId daoEnvioPorId) {
+        return new ServicioEliminarEnvio(repositorioEnvio, daoEnvioPorId);
+    }
+
+    @Bean
     public ServicioListarEnvios servicioListarEnvios(DaoEnvioListarEntreFechas daoEnvioListarEntreFechas) {
         return new ServicioListarEnvios(daoEnvioListarEntreFechas);
+    }
+
+    @Bean
+    public ServicioConsultarEnvioPorId servicioConsultarEnvioPorId(DaoEnvioPorId daoEnvioPorId) {
+        return new ServicioConsultarEnvioPorId(daoEnvioPorId);
     }
 	
 

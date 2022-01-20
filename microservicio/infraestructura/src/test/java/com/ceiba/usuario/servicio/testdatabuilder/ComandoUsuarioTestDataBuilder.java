@@ -10,16 +10,14 @@ public class ComandoUsuarioTestDataBuilder {
     private Long id;
     private String nombre;
     private String idDocumento;
-    private LocalDateTime fecha;
 
     public ComandoUsuarioTestDataBuilder() {
         nombre = UUID.randomUUID().toString();
         idDocumento = "123465";
-        fecha = LocalDateTime.now();
     }
 
-    public ComandoUsuarioTestDataBuilder conNombre(String nombre) {
-        this.nombre = nombre;
+    public ComandoUsuarioTestDataBuilder conIdDocumento(String idDocumento) {
+        this.idDocumento = idDocumento;
         return this;
     }
 

@@ -8,10 +8,7 @@ import com.ceiba.usuario.servicio.testdatabuilder.UsuarioTestDataBuilder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class UsuarioTest {
 
@@ -24,7 +21,7 @@ class UsuarioTest {
         assertEquals(1, usuario.getId());
         assertEquals("1234", usuario.getNombre());
         assertEquals("123456", usuario.getIdDocumento());
-        assertTrue(usuario.getFechaCreacion() != null);
+        assertNotNull(usuario.getFechaCreacion());
     }
 
     @Test

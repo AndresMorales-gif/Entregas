@@ -18,7 +18,7 @@ public class ManejadorError extends ResponseEntityExceptionHandler {
     
     private static final Logger LOGGER_ERROR = LoggerFactory.getLogger(ManejadorError.class);
 
-    private static final String OCURRIO_UN_ERROR_FAVOR_CONTACTAR_AL_ADMINISTRADOR = "OcurriÃ³ un error favor contactar al administrador.";
+    private static final String OCURRIO_UN_ERROR_FAVOR_CONTACTAR_AL_ADMINISTRADOR = "Ocurrió un error favor contactar al administrador.";
 
     private static final ConcurrentHashMap<String, Integer> CODIGOS_ESTADO = new ConcurrentHashMap<>();
 
@@ -30,7 +30,8 @@ public class ManejadorError extends ResponseEntityExceptionHandler {
         CODIGOS_ESTADO.put(ExcepcionDuplicidad.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
         CODIGOS_ESTADO.put(ExcepcionTecnica.class.getSimpleName(), HttpStatus.INTERNAL_SERVER_ERROR.value());
         CODIGOS_ESTADO.put(ExcepcionNoEncontrado.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
-        
+        CODIGOS_ESTADO.put(ExcepcionOperacionInvalida.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
+
         //en caso de tener otra excepcion matricularla aca
     }
 

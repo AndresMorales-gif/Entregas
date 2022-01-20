@@ -8,5 +8,5 @@ public interface DaoEnvioPorId {
      * Permite buscar envio por id
      * @return envio
      */
-    DtoEnvio encontrarPorDocumento(Long id);
+    DtoEnvio encontrarPorId(Long id);
 }

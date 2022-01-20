@@ -1,7 +1,6 @@
-package com.ceiba.zona;
+package com.ceiba.zona.controlador;
 
 import com.ceiba.ApplicationMock;
-import com.ceiba.usuario.controlador.ConsultaControladorUsuario;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,16 +13,15 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(ConsultaControladorUsuario.class)
+@WebMvcTest(ConsultaControladorZona.class)
 @ContextConfiguration(classes= ApplicationMock.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class ConsultaControladorZonaTest {
+class ConsultaControladorZonaTest {
 
     @Autowired
     private MockMvc mocMvc;
@@ -39,4 +37,5 @@ public class ConsultaControladorZonaTest {
                 .andExpect(jsonPath("$[?(@.nombre == 'testZona')].diasEntrega", hasSize(1)));
 
     }
+
 }

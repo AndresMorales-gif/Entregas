@@ -1,5 +1,4 @@
 update usuario
 set nombre = :nombre,
-	id_documento = :idDocumento,
-	fecha_creacion = :fechaCreacion
+	id_documento = :idDocumento
 where id = :id
