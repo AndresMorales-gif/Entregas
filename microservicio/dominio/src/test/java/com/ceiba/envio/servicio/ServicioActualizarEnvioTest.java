@@ -92,7 +92,7 @@ class ServicioActualizarEnvioTest {
     }
 
     @Test
-    @DisplayName("Deberia que el destinatario exista previamente")
+    @DisplayName("Deberia validar que el destinatario exista previamente")
     void deberiaValidarQueElDestinatarioExista() {
         // arrange
         resetMocks();

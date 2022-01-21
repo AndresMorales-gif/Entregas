@@ -40,10 +40,12 @@ class ConsultaControladorEnvioTest {
     }
 
     @Test
-    @DisplayName("Deberia listar envios pendientes")
+    @DisplayName("Deberia listar envios en proceso vacio")
     void deberiaListarEnviosEnProcesoVacio() throws Exception {
+        // arrange
         Long remitente = 1L;
         Long consulta = 2L;
+        // act - assert
         mocMvc.perform(get("/envios/usuario/{remitente}?consulta={tipo}", remitente, consulta)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -52,9 +54,11 @@ class ConsultaControladorEnvioTest {
     }
 
     @Test
-    @DisplayName("Deberia listar envios pendientes")
+    @DisplayName("Deberia encontrar envio por Id")
     void deberiaEncontrarEnvioPorId() throws Exception {
+        // arrange
         Long id = 1L;
+        // act - assert
         mocMvc.perform(get("/envios/{id}", id)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -64,9 +68,11 @@ class ConsultaControladorEnvioTest {
     }
 
     @Test
-    @DisplayName("Deberia listar envios pendientes")
+    @DisplayName("Deberia fallar por id inexistente")
     void deberiaFallarEnvioPorIdInexistente() throws Exception {
+        // arrange
         Long id = 2L;
+        // act - assert
         mocMvc.perform(get("/envios/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())

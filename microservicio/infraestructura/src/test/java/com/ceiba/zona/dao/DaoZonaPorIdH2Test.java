@@ -20,6 +20,7 @@ class DaoZonaPorIdH2Test {
     @Test
     @DisplayName("Deberia traer la zona")
     void deberiaTraerLaZona() {
+        // arrange
         CustomNamedParameterJdbcTemplate jdbcMock = Mockito.mock(CustomNamedParameterJdbcTemplate.class);
         NamedParameterJdbcTemplate parametrosjdbcMock = Mockito.mock(NamedParameterJdbcTemplate.class);
 
@@ -28,14 +29,16 @@ class DaoZonaPorIdH2Test {
 
         Mockito.when(jdbcMock.getNamedParameterJdbcTemplate()).thenReturn(parametrosjdbcMock);
         DaoZonaPorId daoZonaPorId = new DaoZonaPorIdH2(jdbcMock);
-        DtoZona zonaTest = daoZonaPorId.encontrarZonaPorId(1L);
-        System.out.println(zonaTest);
-        assertEquals(1L, zonaTest.getId());
+        // act
+        DtoZona ZonaPrueba = daoZonaPorId.encontrarZonaPorId(1L);
+        // assert
+        assertEquals(1L, ZonaPrueba.getId());
     }
 
     @Test
     @DisplayName("Deberia devolver null por no encontrar la zona")
     void deberiaTraerNull() {
+        // arrange
         CustomNamedParameterJdbcTemplate jdbcMock = Mockito.mock(CustomNamedParameterJdbcTemplate.class);
         NamedParameterJdbcTemplate parametrosjdbcMock = Mockito.mock(NamedParameterJdbcTemplate.class);
 
@@ -44,7 +47,9 @@ class DaoZonaPorIdH2Test {
 
         Mockito.when(jdbcMock.getNamedParameterJdbcTemplate()).thenReturn(parametrosjdbcMock);
         DaoZonaPorId daoZonaPorId = new DaoZonaPorIdH2(jdbcMock);
+        // act
         DtoZona zonaTest = daoZonaPorId.encontrarZonaPorId(1L);
+        // assert
         assertNull(zonaTest);
     }
 

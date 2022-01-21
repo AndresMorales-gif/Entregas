@@ -16,7 +16,7 @@ class EnvioTest {
     @Test
     @DisplayName("Deberia crear correctamente el envio")
     void deberiaCrearCorrectamenteElEnvio() {
-        //act
+        //arrange - act
         Envio envio = new EnvioTestDataBuilder().conId(1L).conEnvioPlus(null).build();
         //assert
         assertEquals(1, envio.getId());

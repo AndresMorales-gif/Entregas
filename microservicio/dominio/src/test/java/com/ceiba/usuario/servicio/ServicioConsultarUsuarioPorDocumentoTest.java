@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ServicioConsultarUsuarioPorDocumentoTest {
+class ServicioConsultarUsuarioPorDocumentoTest {
 
     @Test
     @DisplayName("Deberia lanzar una exepcion cuando se valide la existencia del Usuario")

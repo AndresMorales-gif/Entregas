@@ -14,7 +14,7 @@ class DtoEnvioTest {
     @Test
     @DisplayName("Deberia crear correctamente el envio")
     void deberiaCrearCorrectamenteElEnvio() {
-        //act
+        //arrange - act
         DtoEnvio envio = new DtoEnvio(1L, 1L, 2L,
                 1L, Boolean.TRUE, 15L, LocalDateTime.now().plusDays(3L), 150.0, LocalDateTime.now());
         //assert
