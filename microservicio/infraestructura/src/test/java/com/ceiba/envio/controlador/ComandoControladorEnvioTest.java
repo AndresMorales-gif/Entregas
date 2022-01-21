@@ -57,7 +57,7 @@ class ComandoControladorEnvioTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(envio)))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.nombreExcepcion", is("ExcepcionDuplicidad")))
+                .andExpect(jsonPath("$.nombreExcepcion", is("ExcepcionValorInvalido")))
                 .andExpect(jsonPath("$.mensaje", is("El remitente no puede ser el mismo que el destinatario")));
     }
 

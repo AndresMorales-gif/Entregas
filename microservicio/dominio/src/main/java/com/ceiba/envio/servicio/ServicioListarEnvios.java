@@ -16,6 +16,8 @@ public class ServicioListarEnvios {
     private static final String HISTORICO = "3";
 
     private static final Long DIAS_EN_PROCESO = 3L;
+    private static final Long UN_DIA = 1L;
+
 
     private LocalDateTime fechaInicio;
     private LocalDateTime fechaFinal;
@@ -37,17 +39,23 @@ public class ServicioListarEnvios {
         }
         switch (tipoConsulta) {
             case PENDIENTES:
-                fechaInicio = LocalDateTime.now().plusDays(DIAS_EN_PROCESO);
+                fechaInicio = obtenerFecha().plusDays(DIAS_EN_PROCESO + UN_DIA);
+                fechaFinal = null;
                 break;
             case EN_PROCESO:
-                fechaInicio = LocalDateTime.now();
-                fechaFinal = LocalDateTime.now().plusDays(DIAS_EN_PROCESO);
+                fechaInicio = obtenerFecha();
+                fechaFinal = obtenerFecha().plusDays(DIAS_EN_PROCESO);
                 break;
             case HISTORICO:
-                fechaFinal = LocalDateTime.now();
+                fechaInicio = null;
+                fechaFinal = obtenerFecha().minusDays(UN_DIA);
                 break;
             default:
                 throw new ExcepcionValorInvalido(VALOR_CONSULTA_INVALIDO);
         }
+    }
+
+    private LocalDateTime obtenerFecha() {
+        return LocalDateTime.now().withHour(8).withMinute(0).withSecond(0).withNano(0);
     }
 }
