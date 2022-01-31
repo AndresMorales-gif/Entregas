@@ -15,7 +15,7 @@ public class ManejadorListarEnvios {
         this.servicioListarEnvios = servicioListarEnvios;
     }
 
-    public List<DtoEnvio> ejecutar(Long remitente, String tipoConsulta) {
+    public List<DtoEnvio> ejecutar(String remitente, String tipoConsulta) {
         return servicioListarEnvios.ejecutar(remitente, tipoConsulta);
     }
 }

@@ -5,15 +5,15 @@ import com.ceiba.envio.modelo.entidad.Envio;
 public class EnvioTestDataBuilder {
 
     private Long id;
-    private Long remitente;
-    private Long destinatario;
+    private String remitente;
+    private String destinatario;
     private Long zona;
     private Boolean envioPlus;
     private Long pesoCarga;
 
     public EnvioTestDataBuilder() {
-        this.remitente = 1L;
-        this.destinatario = 2L;
+        this.remitente = "123456";
+        this.destinatario = "654321";
         this.zona = 1L;
         this.envioPlus = Boolean.FALSE;
         this.pesoCarga = 15L;
@@ -24,12 +24,12 @@ public class EnvioTestDataBuilder {
         return this;
     }
 
-    public EnvioTestDataBuilder conRemitente(Long remitente) {
+    public EnvioTestDataBuilder conRemitente(String remitente) {
         this.remitente = remitente;
         return this;
     }
 
-    public EnvioTestDataBuilder conDestinatario(Long destinatario) {
+    public EnvioTestDataBuilder conDestinatario(String destinatario) {
         this.destinatario = destinatario;
         return this;
     }

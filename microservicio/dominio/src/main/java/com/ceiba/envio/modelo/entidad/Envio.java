@@ -19,8 +19,8 @@ public class Envio {
     private static final String EL_REMITENTE_DESTINATARIO_IGUAL = "El remitente no puede ser el mismo que el destinatario";
 
     private Long id;
-    private Long remitente;
-    private Long destinatario;
+    private String remitente;
+    private String destinatario;
     private Long zona;
     private Boolean envioPlus;
     private Long pesoCarga;
@@ -28,7 +28,7 @@ public class Envio {
     private Double precio;
     private LocalDateTime fechaCreacion;
 
-    public Envio(Long id, Long remitente, Long destinatario, Long zona, Boolean envioPlus, Long pesoCarga) {
+    public Envio(Long id, String remitente, String destinatario, Long zona, Boolean envioPlus, Long pesoCarga) {
         validarObligatorio(remitente, SE_DEBE_INGRESAR_EL_REMITENTE);
         validarObligatorio(destinatario, SE_DEBE_INGRESAR_EL_DESTINATARIO);
         validarObligatorio(zona, SE_DEBE_INGRESAR_LA_ZONA);

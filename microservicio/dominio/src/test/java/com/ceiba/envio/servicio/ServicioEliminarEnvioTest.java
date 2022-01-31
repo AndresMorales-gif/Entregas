@@ -58,7 +58,7 @@ class ServicioEliminarEnvioTest {
         // arrange
         resetMocks();
         Long id = 1L;
-        DtoEnvio envioMock = new DtoEnvio(1L, 1L, 2L, 1L, Boolean.FALSE,
+        DtoEnvio envioMock = new DtoEnvio(1L, "123456", "654321", 1L, Boolean.FALSE,
                 15L, LocalDateTime.now().plusDays(1L).withHour(8).withMinute(0).withSecond(0).withNano(0), 150.0, LocalDateTime.now());
 
         Mockito.when(daoEnvioPorId.encontrarPorId(Mockito.anyLong())).thenReturn(envioMock);

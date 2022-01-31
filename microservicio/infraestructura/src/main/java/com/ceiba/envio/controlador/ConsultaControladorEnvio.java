@@ -24,7 +24,7 @@ public class ConsultaControladorEnvio {
 
     @GetMapping(value="/usuario/{remitente}")
     @ApiOperation("Listar Envios por remitente")
-    public List<DtoEnvio> listar(@PathVariable Long remitente, @RequestParam(value = "consulta", required = false) String tipoConsulta) {
+    public List<DtoEnvio> listar(@PathVariable String remitente, @RequestParam(value = "consulta", required = false) String tipoConsulta) {
         return manejadorListarEnvios.ejecutar(remitente, tipoConsulta);
     }
 

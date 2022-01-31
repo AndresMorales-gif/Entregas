@@ -8,6 +8,7 @@ import com.ceiba.envio.modelo.entidad.Envio;
 import com.ceiba.envio.puerto.dao.DaoEnvioPorId;
 import com.ceiba.envio.puerto.repositorio.RepositorioEnvio;
 import com.ceiba.envio.servicio.base.ServicioBaseEnvio;
+import com.ceiba.usuario.puerto.dao.DaoUsuarioPorDocumento;
 import com.ceiba.usuario.puerto.repositorio.RepositorioUsuario;
 import com.ceiba.zona.modelo.dto.DtoZona;
 import com.ceiba.zona.puerto.dao.DaoZonaPorId;
@@ -25,8 +26,8 @@ public class ServicioActualizarEnvio extends ServicioBaseEnvio {
     private final RepositorioEnvio repositorioEnvio;
     private final DaoEnvioPorId daoEnvioPorId;
 
-    public ServicioActualizarEnvio(RepositorioEnvio repositorioEnvio, RepositorioUsuario repositorioUsuario, DaoZonaPorId daoZonaPorId, DaoEnvioPorId daoEnvioPorId) {
-        super(repositorioUsuario, daoZonaPorId);
+    public ServicioActualizarEnvio(RepositorioEnvio repositorioEnvio, DaoUsuarioPorDocumento daoUsuarioPorDocumento, DaoZonaPorId daoZonaPorId, DaoEnvioPorId daoEnvioPorId) {
+        super(daoUsuarioPorDocumento, daoZonaPorId);
         this.repositorioEnvio = repositorioEnvio;
         this.daoEnvioPorId = daoEnvioPorId;
     }

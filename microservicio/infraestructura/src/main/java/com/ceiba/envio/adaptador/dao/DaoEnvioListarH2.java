@@ -23,7 +23,7 @@ public class DaoEnvioListarH2 implements DaoEnvioListarEntreFechas {
     }
 
     @Override
-    public List<DtoEnvio> listarEntreFechas(Long remitente, LocalDateTime fechaInicio, LocalDateTime fechaFinal) {
+    public List<DtoEnvio> listarEntreFechas(String remitente, LocalDateTime fechaInicio, LocalDateTime fechaFinal) {
         MapSqlParameterSource paramSource = new MapSqlParameterSource();
         paramSource.addValue("remitente", remitente);
         paramSource.addValue("fechaInicio", fechaInicio);

@@ -15,12 +15,12 @@ class DtoEnvioTest {
     @DisplayName("Deberia crear correctamente el envio")
     void deberiaCrearCorrectamenteElEnvio() {
         //arrange - act
-        DtoEnvio envio = new DtoEnvio(1L, 1L, 2L,
+        DtoEnvio envio = new DtoEnvio(1L, "123456", "654321",
                 1L, Boolean.TRUE, 15L, LocalDateTime.now().plusDays(3L), 150.0, LocalDateTime.now());
         //assert
         assertEquals(1L, envio.getId());
-        assertEquals(1L, envio.getRemitente());
-        assertEquals(2L, envio.getDestinatario());
+        assertEquals("123456", envio.getRemitente());
+        assertEquals("654321", envio.getDestinatario());
         assertEquals(1L, envio.getZona());
         assertEquals(Boolean.TRUE, envio.getEnvioPlus());
         assertEquals(15L, envio.getPesoCarga());

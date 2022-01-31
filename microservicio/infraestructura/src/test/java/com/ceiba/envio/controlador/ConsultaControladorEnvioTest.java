@@ -30,7 +30,7 @@ class ConsultaControladorEnvioTest {
     @Test
     @DisplayName("Deberia listar envios pendientes")
     void deberiaListarEnviosPendiente() throws Exception {
-        Long remitente = 1L;
+        String remitente = "123456";
         mocMvc.perform(get("/envios/usuario/{remitente}", remitente)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -63,7 +63,7 @@ class ConsultaControladorEnvioTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.pesoCarga", is(15)))
-                .andExpect(jsonPath("$.remitente", is(1)));
+                .andExpect(jsonPath("$.remitente", is("123456")));
 
     }
 

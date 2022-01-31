@@ -5,7 +5,8 @@ import com.ceiba.dominio.excepcion.ExcepcionNoEncontrado;
 import com.ceiba.envio.modelo.entidad.Envio;
 import com.ceiba.envio.puerto.repositorio.RepositorioEnvio;
 import com.ceiba.envio.servicio.testdatabuilder.EnvioTestDataBuilder;
-import com.ceiba.usuario.puerto.repositorio.RepositorioUsuario;
+import com.ceiba.usuario.modelo.dto.DtoUsuario;
+import com.ceiba.usuario.puerto.dao.DaoUsuarioPorDocumento;
 import com.ceiba.zona.modelo.dto.DtoZona;
 import com.ceiba.zona.puerto.dao.DaoZonaPorId;
 import org.junit.jupiter.api.DisplayName;
@@ -19,12 +20,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class ServicioCrearEnvioTest {
 
     RepositorioEnvio repositorioEnvio;
-    RepositorioUsuario repositorioUsuario;
+    DaoUsuarioPorDocumento daoUsuarioPorDocumento;
     DaoZonaPorId daoZonaPorId;
 
     public ServicioCrearEnvioTest() {
         repositorioEnvio = Mockito.mock(RepositorioEnvio.class);
-        repositorioUsuario = Mockito.mock(RepositorioUsuario.class);
+        daoUsuarioPorDocumento = Mockito.mock(DaoUsuarioPorDocumento.class);
         daoZonaPorId = Mockito.mock(DaoZonaPorId.class);
     }
 
@@ -36,9 +37,9 @@ class ServicioCrearEnvioTest {
         Envio envio = new EnvioTestDataBuilder().conId(1L).conPesoCarga(10L).build();
         DtoZona zona = obtenerZona();
 
-        Mockito.when(repositorioUsuario.existePorId(Mockito.anyLong())).thenReturn(true);
+        Mockito.when(daoUsuarioPorDocumento.encontrarPorDocumento(Mockito.anyString())).thenReturn(new DtoUsuario(1L, "test", "123456", null));
         Mockito.when(daoZonaPorId.encontrarZonaPorId(Mockito.anyLong())).thenReturn(zona);
-        ServicioCrearEnvio servicioCrearEnvio = new ServicioCrearEnvio(repositorioEnvio, repositorioUsuario, daoZonaPorId);
+        ServicioCrearEnvio servicioCrearEnvio = new ServicioCrearEnvio(repositorioEnvio, daoUsuarioPorDocumento, daoZonaPorId);
         // act
         servicioCrearEnvio.ejecutar(envio);
         //assert
@@ -55,9 +56,9 @@ class ServicioCrearEnvioTest {
         Envio envio = new EnvioTestDataBuilder().conId(1L).conPesoCarga(20L).conEnvioPlus(Boolean.TRUE).build();
         DtoZona zona = obtenerZona();
 
-        Mockito.when(repositorioUsuario.existePorId(Mockito.anyLong())).thenReturn(true);
+        Mockito.when(daoUsuarioPorDocumento.encontrarPorDocumento(Mockito.anyString())).thenReturn(new DtoUsuario(1L, "test", "123456", null));
         Mockito.when(daoZonaPorId.encontrarZonaPorId(Mockito.anyLong())).thenReturn(zona);
-        ServicioCrearEnvio servicioCrearEnvio = new ServicioCrearEnvio(repositorioEnvio, repositorioUsuario, daoZonaPorId);
+        ServicioCrearEnvio servicioCrearEnvio = new ServicioCrearEnvio(repositorioEnvio, daoUsuarioPorDocumento, daoZonaPorId);
         // act
         servicioCrearEnvio.ejecutar(envio);
         //assert
@@ -73,8 +74,8 @@ class ServicioCrearEnvioTest {
         resetMocks();
         Envio envio = new EnvioTestDataBuilder().conId(1L).build();
 
-        Mockito.when(repositorioUsuario.existePorId(1L)).thenReturn(false);
-        ServicioCrearEnvio servicioCrearEnvio = new ServicioCrearEnvio(repositorioEnvio, repositorioUsuario, daoZonaPorId);
+        Mockito.when(daoUsuarioPorDocumento.encontrarPorDocumento("123456")).thenReturn(null);
+        ServicioCrearEnvio servicioCrearEnvio = new ServicioCrearEnvio(repositorioEnvio, daoUsuarioPorDocumento, daoZonaPorId);
         // act - assert
         BasePrueba.assertThrows(() -> servicioCrearEnvio.ejecutar(envio), ExcepcionNoEncontrado.class,"El remitente no existe en el sistema");
     }
@@ -86,9 +87,9 @@ class ServicioCrearEnvioTest {
         resetMocks();
         Envio envio = new EnvioTestDataBuilder().conId(1L).build();
 
-        Mockito.when(repositorioUsuario.existePorId(1L)).thenReturn(true);
-        Mockito.when(repositorioUsuario.existePorId(2L)).thenReturn(false);
-        ServicioCrearEnvio servicioCrearEnvio = new ServicioCrearEnvio(repositorioEnvio, repositorioUsuario, daoZonaPorId);
+        Mockito.when(daoUsuarioPorDocumento.encontrarPorDocumento("123456")).thenReturn(new DtoUsuario(1L, "test", "123456", null));
+        Mockito.when(daoUsuarioPorDocumento.encontrarPorDocumento("654321")).thenReturn(null);
+        ServicioCrearEnvio servicioCrearEnvio = new ServicioCrearEnvio(repositorioEnvio, daoUsuarioPorDocumento, daoZonaPorId);
         // act - assert
         BasePrueba.assertThrows(() -> servicioCrearEnvio.ejecutar(envio), ExcepcionNoEncontrado.class,"El destinatario no existe en el sistema");
     }
@@ -100,14 +101,14 @@ class ServicioCrearEnvioTest {
         resetMocks();
         Envio envio = new EnvioTestDataBuilder().conId(1L).build();
 
-        Mockito.when(repositorioUsuario.existePorId(Mockito.anyLong())).thenReturn(true);
+        Mockito.when(daoUsuarioPorDocumento.encontrarPorDocumento(Mockito.anyString())).thenReturn(new DtoUsuario(1L, "test", "123456", null));
         Mockito.when(daoZonaPorId.encontrarZonaPorId(Mockito.anyLong())).thenReturn(null);
-        ServicioCrearEnvio servicioCrearEnvio = new ServicioCrearEnvio(repositorioEnvio, repositorioUsuario, daoZonaPorId);
+        ServicioCrearEnvio servicioCrearEnvio = new ServicioCrearEnvio(repositorioEnvio, daoUsuarioPorDocumento, daoZonaPorId);
         // act - assert
         BasePrueba.assertThrows(() -> servicioCrearEnvio.ejecutar(envio), ExcepcionNoEncontrado.class,"La zona no existe en el sistema");
     }
 
     void resetMocks() {
-        Mockito.reset(repositorioUsuario, repositorioEnvio, daoZonaPorId);
+        Mockito.reset(daoUsuarioPorDocumento, repositorioEnvio, daoZonaPorId);
     }
 }

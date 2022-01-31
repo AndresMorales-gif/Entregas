@@ -21,16 +21,15 @@ class ServicioListarEnviosTest {
     @DisplayName("Deberia listar envios pendiente")
     void deberialistarEnviosPendientes() {
         // arrange
-        Long remitente = 1L;
-        String tipoConsulta = null;
+        String remitente = "123456";
         List<DtoEnvio> envios = new ArrayList<>();
         envios.add(obtenerDataEnvio());
         envios.add(obtenerDataEnvio());
         DaoEnvioListarEntreFechas daoEnvioListarEntreFechas = Mockito.mock(DaoEnvioListarEntreFechas.class);
-        Mockito.when(daoEnvioListarEntreFechas.listarEntreFechas(Mockito.anyLong(), Mockito.any(LocalDateTime.class), Mockito.any())).thenReturn(envios);
+        Mockito.when(daoEnvioListarEntreFechas.listarEntreFechas(Mockito.anyString(), Mockito.any(LocalDateTime.class), Mockito.any())).thenReturn(envios);
         ServicioListarEnvios servicioListarEnvios = new ServicioListarEnvios(daoEnvioListarEntreFechas);
         // act
-        List<DtoEnvio> enviosPrueba = servicioListarEnvios.ejecutar(remitente, tipoConsulta);
+        List<DtoEnvio> enviosPrueba = servicioListarEnvios.ejecutar(remitente, null);
         //assert
         assertEquals(2, enviosPrueba.size());
     }
@@ -39,11 +38,11 @@ class ServicioListarEnviosTest {
     @DisplayName("Deberia listar envios en proceso vacio")
     void deberialistarEnviosEnProcesoVacio() {
         // arrange
-        Long remitente = 1L;
+        String remitente = "123456";
         String tipoConsulta = "2";
         List<DtoEnvio> envios = new ArrayList<>();
         DaoEnvioListarEntreFechas daoEnvioListarEntreFechas = Mockito.mock(DaoEnvioListarEntreFechas.class);
-        Mockito.when(daoEnvioListarEntreFechas.listarEntreFechas(Mockito.anyLong(), Mockito.any(LocalDateTime.class), Mockito.any(LocalDateTime.class))).thenReturn(envios);
+        Mockito.when(daoEnvioListarEntreFechas.listarEntreFechas(Mockito.anyString(), Mockito.any(LocalDateTime.class), Mockito.any(LocalDateTime.class))).thenReturn(envios);
         ServicioListarEnvios servicioListarEnvios = new ServicioListarEnvios(daoEnvioListarEntreFechas);
         // act
         List<DtoEnvio> enviosPrueba = servicioListarEnvios.ejecutar(remitente, tipoConsulta);
@@ -55,12 +54,12 @@ class ServicioListarEnviosTest {
     @DisplayName("Deberia listar historico envios")
     void deberialistarHistoricoEnvios() {
         // arrange
-        Long remitente = 1L;
+        String remitente = "123456";
         String tipoConsulta = "3";
         List<DtoEnvio> envios = new ArrayList<>();
         envios.add(obtenerDataEnvio());
         DaoEnvioListarEntreFechas daoEnvioListarEntreFechas = Mockito.mock(DaoEnvioListarEntreFechas.class);
-        Mockito.when(daoEnvioListarEntreFechas.listarEntreFechas(Mockito.anyLong(), Mockito.any(), Mockito.any())).thenReturn(envios);
+        Mockito.when(daoEnvioListarEntreFechas.listarEntreFechas(Mockito.anyString(), Mockito.any(), Mockito.any())).thenReturn(envios);
         ServicioListarEnvios servicioListarEnvios = new ServicioListarEnvios(daoEnvioListarEntreFechas);
         // act
         List<DtoEnvio> enviosPrueba = servicioListarEnvios.ejecutar(remitente, tipoConsulta);
@@ -72,11 +71,11 @@ class ServicioListarEnviosTest {
     @DisplayName("Deberia validar el valor de tipo consulta")
     void deberiaValidarValorTipoConsulta() {
         // arrange
-        Long remitente = 1L;
+        String remitente = "123456";
         String tipoConsulta = "4";
         List<DtoEnvio> envios = new ArrayList<>();
         DaoEnvioListarEntreFechas daoEnvioListarEntreFechas = Mockito.mock(DaoEnvioListarEntreFechas.class);
-        Mockito.when(daoEnvioListarEntreFechas.listarEntreFechas(Mockito.anyLong(), Mockito.any(), Mockito.any())).thenReturn(envios);
+        Mockito.when(daoEnvioListarEntreFechas.listarEntreFechas(Mockito.anyString(), Mockito.any(), Mockito.any())).thenReturn(envios);
         ServicioListarEnvios servicioListarEnvios = new ServicioListarEnvios(daoEnvioListarEntreFechas);
         // act - assert
         BasePrueba.assertThrows(() -> servicioListarEnvios.ejecutar(remitente, tipoConsulta), ExcepcionValorInvalido.class,"El valor del parametro consulta no es correcto");

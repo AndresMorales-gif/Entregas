@@ -15,8 +15,8 @@ create table zona (
 
 create table envio (
   id int(11) not null auto_increment,
-  remitente int(11) not null,
-  destinatario int(11) not null,
+  remitente varchar(45) not null,
+  destinatario varchar(45) not null,
   zona int(11) not null,
   envio_plus bit not null,
   peso_carga float(11) not null,

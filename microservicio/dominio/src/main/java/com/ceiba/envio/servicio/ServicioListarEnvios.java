@@ -28,7 +28,7 @@ public class ServicioListarEnvios {
         this.daoEnvioListarEntreFechas = daoEnvioListarEntreFechas;
     }
 
-    public List<DtoEnvio> ejecutar(Long remitente, String tipoConsulta) {
+    public List<DtoEnvio> ejecutar(String remitente, String tipoConsulta) {
         validarFechas(tipoConsulta);
         return this.daoEnvioListarEntreFechas.listarEntreFechas(remitente, this.fechaInicio, this.fechaFinal);
     }

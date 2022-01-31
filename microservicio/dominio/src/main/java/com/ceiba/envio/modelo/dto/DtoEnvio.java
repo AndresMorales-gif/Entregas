@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class DtoEnvio {
     private Long id;
-    private Long remitente;
-    private Long destinatario;
+    private String remitente;
+    private String destinatario;
     private Long zona;
     private Boolean envioPlus;
     private Long pesoCarga;

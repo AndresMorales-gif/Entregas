@@ -5,26 +5,26 @@ import com.ceiba.envio.comando.ComandoEnvio;
 public class ComandEnvioTestDataBuilder {
 
     private Long id;
-    private Long remitente;
-    private Long destinatario;
+    private String remitente;
+    private String destinatario;
     private Long zona;
     private Boolean envioPlus;
     private Long pesoCarga;
 
     public ComandEnvioTestDataBuilder() {
-        remitente = 1L;
-        destinatario = 2L;
+        remitente = "123456";
+        destinatario = "654321";
         zona = 1L;
         envioPlus = Boolean.FALSE;
         pesoCarga = 15L;
     }
 
-    public ComandEnvioTestDataBuilder conRemitente(Long remitente) {
+    public ComandEnvioTestDataBuilder conRemitente(String remitente) {
         this.remitente = remitente;
         return this;
     }
 
-    public ComandEnvioTestDataBuilder conDestinatario(Long destinatario) {
+    public ComandEnvioTestDataBuilder conDestinatario(String destinatario) {
         this.destinatario = destinatario;
         return this;
     }

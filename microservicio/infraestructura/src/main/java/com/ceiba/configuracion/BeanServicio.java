@@ -38,13 +38,13 @@ public class BeanServicio {
     }
 
     @Bean
-    public ServicioCrearEnvio servicioCrearEnvio(RepositorioEnvio repositorioEnvio, RepositorioUsuario repositorioUsuario, DaoZonaPorId daoZonaPorId) {
-        return new ServicioCrearEnvio(repositorioEnvio, repositorioUsuario, daoZonaPorId);
+    public ServicioCrearEnvio servicioCrearEnvio(RepositorioEnvio repositorioEnvio, DaoUsuarioPorDocumento daoUsuarioPorDocumento, DaoZonaPorId daoZonaPorId) {
+        return new ServicioCrearEnvio(repositorioEnvio, daoUsuarioPorDocumento, daoZonaPorId);
     }
 
     @Bean
-    public ServicioActualizarEnvio servicioActualizarEnvio(RepositorioEnvio repositorioEnvio, RepositorioUsuario repositorioUsuario, DaoZonaPorId daoZonaPorId, DaoEnvioPorId daoEnvioPorId) {
-        return new ServicioActualizarEnvio(repositorioEnvio, repositorioUsuario, daoZonaPorId, daoEnvioPorId);
+    public ServicioActualizarEnvio servicioActualizarEnvio(RepositorioEnvio repositorioEnvio, DaoUsuarioPorDocumento daoUsuarioPorDocumento, DaoZonaPorId daoZonaPorId, DaoEnvioPorId daoEnvioPorId) {
+        return new ServicioActualizarEnvio(repositorioEnvio, daoUsuarioPorDocumento, daoZonaPorId, daoEnvioPorId);
     }
 
     @Bean

@@ -11,5 +11,5 @@ public interface DaoEnvioListarEntreFechas {
      * Permite listar envios
      * @return los envios entre las fechas especificadas
      */
-    List<DtoEnvio> listarEntreFechas(Long remitente, LocalDateTime fechaInicio, LocalDateTime fechaFinal);
+    List<DtoEnvio> listarEntreFechas(String remitente, LocalDateTime fechaInicio, LocalDateTime fechaFinal);
 }

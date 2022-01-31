@@ -9,7 +9,8 @@ import com.ceiba.envio.modelo.entidad.Envio;
 import com.ceiba.envio.puerto.dao.DaoEnvioPorId;
 import com.ceiba.envio.puerto.repositorio.RepositorioEnvio;
 import com.ceiba.envio.servicio.testdatabuilder.EnvioTestDataBuilder;
-import com.ceiba.usuario.puerto.repositorio.RepositorioUsuario;
+import com.ceiba.usuario.modelo.dto.DtoUsuario;
+import com.ceiba.usuario.puerto.dao.DaoUsuarioPorDocumento;
 import com.ceiba.zona.modelo.dto.DtoZona;
 import com.ceiba.zona.puerto.dao.DaoZonaPorId;
 import org.junit.jupiter.api.DisplayName;
@@ -25,13 +26,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class ServicioActualizarEnvioTest {
 
     RepositorioEnvio repositorioEnvio;
-    RepositorioUsuario repositorioUsuario;
+    DaoUsuarioPorDocumento daoUsuarioPorDocumento;
     DaoZonaPorId daoZonaPorId;
     DaoEnvioPorId daoEnvioPorId;
 
     public ServicioActualizarEnvioTest() {
         repositorioEnvio = Mockito.mock(RepositorioEnvio.class);
-        repositorioUsuario = Mockito.mock(RepositorioUsuario.class);
+        daoUsuarioPorDocumento = Mockito.mock(DaoUsuarioPorDocumento.class);
         daoZonaPorId = Mockito.mock(DaoZonaPorId.class);
         daoEnvioPorId = Mockito.mock(DaoEnvioPorId.class);
     }
@@ -41,14 +42,14 @@ class ServicioActualizarEnvioTest {
     void deberiaActualizarCorrectamenteEnElRepositorioCambiandoPrecioEnvioPlus() {
         // arrange
         resetMocks();
-        Envio envio = new EnvioTestDataBuilder().conId(1L).conEnvioPlus(Boolean.TRUE).conDestinatario(3L).build();
+        Envio envio = new EnvioTestDataBuilder().conId(1L).conEnvioPlus(Boolean.TRUE).conDestinatario("124578").build();
         DtoEnvio envioMock = obtenerDataEnvio();
         DtoZona zona = obtenerZona();
 
         Mockito.when(daoEnvioPorId.encontrarPorId(Mockito.anyLong())).thenReturn(envioMock);
-        Mockito.when(repositorioUsuario.existePorId(Mockito.anyLong())).thenReturn(true);
+        Mockito.when(daoUsuarioPorDocumento.encontrarPorDocumento(Mockito.anyString())).thenReturn(new DtoUsuario(1L, "test", "123456", null));
         Mockito.when(daoZonaPorId.encontrarZonaPorId(Mockito.anyLong())).thenReturn(zona);
-        ServicioActualizarEnvio servicioActualizarEnvio = new ServicioActualizarEnvio(repositorioEnvio, repositorioUsuario, daoZonaPorId, daoEnvioPorId);
+        ServicioActualizarEnvio servicioActualizarEnvio = new ServicioActualizarEnvio(repositorioEnvio, daoUsuarioPorDocumento, daoZonaPorId, daoEnvioPorId);
         // act
         servicioActualizarEnvio.ejecutar(envio);
         //assert
@@ -67,9 +68,9 @@ class ServicioActualizarEnvioTest {
         DtoZona zona = new DtoZona(2L, "test", 9);
 
         Mockito.when(daoEnvioPorId.encontrarPorId(Mockito.anyLong())).thenReturn(envioMock);
-        Mockito.when(repositorioUsuario.existePorId(Mockito.anyLong())).thenReturn(true);
+        Mockito.when(daoUsuarioPorDocumento.encontrarPorDocumento(Mockito.anyString())).thenReturn(new DtoUsuario(1L, "test", "123456", null));
         Mockito.when(daoZonaPorId.encontrarZonaPorId(Mockito.anyLong())).thenReturn(zona);
-        ServicioActualizarEnvio servicioActualizarEnvio = new ServicioActualizarEnvio(repositorioEnvio, repositorioUsuario, daoZonaPorId, daoEnvioPorId);
+        ServicioActualizarEnvio servicioActualizarEnvio = new ServicioActualizarEnvio(repositorioEnvio, daoUsuarioPorDocumento, daoZonaPorId, daoEnvioPorId);
         // act
         servicioActualizarEnvio.ejecutar(envio);
         //assert
@@ -82,11 +83,11 @@ class ServicioActualizarEnvioTest {
     void deberiaValidarQueElRemitenteNoCambie() {
         // arrange
         resetMocks();
-        Envio envio = new EnvioTestDataBuilder().conId(1L).conRemitente(3L).build();
+        Envio envio = new EnvioTestDataBuilder().conId(1L).conRemitente("124578").build();
         DtoEnvio envioMock = obtenerDataEnvio();
 
         Mockito.when(daoEnvioPorId.encontrarPorId(Mockito.anyLong())).thenReturn(envioMock);
-        ServicioActualizarEnvio servicioActualizarEnvio = new ServicioActualizarEnvio(repositorioEnvio, repositorioUsuario, daoZonaPorId, daoEnvioPorId);
+        ServicioActualizarEnvio servicioActualizarEnvio = new ServicioActualizarEnvio(repositorioEnvio, daoUsuarioPorDocumento, daoZonaPorId, daoEnvioPorId);
         // act - assert
         BasePrueba.assertThrows(() -> servicioActualizarEnvio.ejecutar(envio), ExcepcionValorInvalido.class,"El remitente no puede ser diferente");
     }
@@ -96,12 +97,12 @@ class ServicioActualizarEnvioTest {
     void deberiaValidarQueElDestinatarioExista() {
         // arrange
         resetMocks();
-        Envio envio = new EnvioTestDataBuilder().conId(1L).conDestinatario(3L).build();
+        Envio envio = new EnvioTestDataBuilder().conId(1L).conDestinatario("124578").build();
         DtoEnvio envioMock = obtenerDataEnvio();
 
         Mockito.when(daoEnvioPorId.encontrarPorId(Mockito.anyLong())).thenReturn(envioMock);
-        Mockito.when(repositorioUsuario.existePorId(Mockito.anyLong())).thenReturn(false);
-        ServicioActualizarEnvio servicioActualizarEnvio = new ServicioActualizarEnvio(repositorioEnvio, repositorioUsuario, daoZonaPorId, daoEnvioPorId);
+        Mockito.when(daoUsuarioPorDocumento.encontrarPorDocumento(Mockito.anyString())).thenReturn(null);
+        ServicioActualizarEnvio servicioActualizarEnvio = new ServicioActualizarEnvio(repositorioEnvio, daoUsuarioPorDocumento, daoZonaPorId, daoEnvioPorId);
         // act - assert
         BasePrueba.assertThrows(() -> servicioActualizarEnvio.ejecutar(envio), ExcepcionNoEncontrado.class,"El destinatario no existe en el sistema");
     }
@@ -111,11 +112,11 @@ class ServicioActualizarEnvioTest {
     void deberiaValidarFechaValidaParaActualizar() {
         // arrange
         resetMocks();
-        Envio envio = new EnvioTestDataBuilder().conId(1L).conDestinatario(3L).build();
-        DtoEnvio envioMock = new DtoEnvio(1L, 1L, 2L, 1L, Boolean.FALSE,
+        Envio envio = new EnvioTestDataBuilder().conId(1L).conDestinatario("124578").build();
+        DtoEnvio envioMock = new DtoEnvio(1L, "123456", "654321", 1L, Boolean.FALSE,
                 15L, LocalDateTime.now().plusDays(2L).withHour(8).withMinute(0).withSecond(0).withNano(0), 150.0, LocalDateTime.now());
         Mockito.when(daoEnvioPorId.encontrarPorId(Mockito.anyLong())).thenReturn(envioMock);
-        ServicioActualizarEnvio servicioActualizarEnvio = new ServicioActualizarEnvio(repositorioEnvio, repositorioUsuario, daoZonaPorId, daoEnvioPorId);
+        ServicioActualizarEnvio servicioActualizarEnvio = new ServicioActualizarEnvio(repositorioEnvio, daoUsuarioPorDocumento, daoZonaPorId, daoEnvioPorId);
         // act - assert
         BasePrueba.assertThrows(() -> servicioActualizarEnvio.ejecutar(envio), ExcepcionOperacionInvalida.class,"El envio se encuentra en proceso. No es posible actualizarlo");
     }
@@ -127,13 +128,13 @@ class ServicioActualizarEnvioTest {
         resetMocks();
         Envio envio = new EnvioTestDataBuilder().conId(1L).build();
         Mockito.when(daoEnvioPorId.encontrarPorId(Mockito.anyLong())).thenReturn(null);
-        ServicioActualizarEnvio servicioActualizarEnvio = new ServicioActualizarEnvio(repositorioEnvio, repositorioUsuario, daoZonaPorId, daoEnvioPorId);
+        ServicioActualizarEnvio servicioActualizarEnvio = new ServicioActualizarEnvio(repositorioEnvio, daoUsuarioPorDocumento, daoZonaPorId, daoEnvioPorId);
         // act - assert
         BasePrueba.assertThrows(() -> servicioActualizarEnvio.ejecutar(envio), ExcepcionNoEncontrado.class,"El envio no se encontro en el sistema");
     }
 
     void resetMocks() {
-        Mockito.reset(repositorioUsuario, repositorioEnvio, daoZonaPorId, daoEnvioPorId);
+        Mockito.reset(daoUsuarioPorDocumento, repositorioEnvio, daoZonaPorId, daoEnvioPorId);
     }
 
 }

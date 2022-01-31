@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class ServicioBasePrueba {
 
     public static DtoEnvio obtenerDataEnvio() {
-        return new DtoEnvio(1L, 1L, 2L, 1L, Boolean.FALSE,
+        return new DtoEnvio(1L, "123456", "654321", 1L, Boolean.FALSE,
                 15L, LocalDateTime.now().plusDays(5L).withHour(8).withMinute(0).withSecond(0).withNano(0), 150.0, LocalDateTime.now());
     }
 

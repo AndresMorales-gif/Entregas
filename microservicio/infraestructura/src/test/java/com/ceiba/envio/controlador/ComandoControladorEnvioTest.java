@@ -37,7 +37,7 @@ class ComandoControladorEnvioTest {
     @DisplayName("Deberia traer error al crear un envio por destinatario no encontrado")
     void deberiaTraerErrorAlCrearUnEnvioPorDestinatarioNoEncontrado() throws Exception{
         // arrange
-        ComandoEnvio envio = new ComandEnvioTestDataBuilder().conDestinatario(3L).build();
+        ComandoEnvio envio = new ComandEnvioTestDataBuilder().conDestinatario("124578").build();
         // act - assert
         mocMvc.perform(post("/envios")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -51,7 +51,7 @@ class ComandoControladorEnvioTest {
     @DisplayName("Deberia traer error al crear un envio por mismo remitente y destinatario")
     void deberiaTraerErrorAlCrearUnEnvioPorMismoRemitenteDestinatario() throws Exception{
         // arrange
-        ComandoEnvio envio = new ComandEnvioTestDataBuilder().conDestinatario(1L).build();
+        ComandoEnvio envio = new ComandEnvioTestDataBuilder().conDestinatario("123456").build();
         // act - assert
         mocMvc.perform(post("/envios")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -93,7 +93,7 @@ class ComandoControladorEnvioTest {
     void deberiaTraerErrorActualizarUnEnvioCambiandoRemitente() throws Exception{
         // arrange
         Long id = 1L;
-        ComandoEnvio envio = new ComandEnvioTestDataBuilder().conRemitente(3L).build();
+        ComandoEnvio envio = new ComandEnvioTestDataBuilder().conRemitente("124578").build();
         // act - assert
         mocMvc.perform(put("/envios/{id}",id)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -108,7 +108,6 @@ class ComandoControladorEnvioTest {
     void deberiaEliminarUnEnvio() throws Exception{
         // arrange
         Long id = 1L;
-        ComandoEnvio envio = new ComandEnvioTestDataBuilder().conRemitente(3L).build();
         // act - assert
         mocMvc.perform(delete("/envios/{id}",id)
                         .contentType(MediaType.APPLICATION_JSON)

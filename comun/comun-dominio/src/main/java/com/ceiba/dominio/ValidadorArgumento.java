@@ -39,7 +39,7 @@ public class ValidadorArgumento {
         }
     }
 
-    public static void validarDiferente(Long valorUno, Long valorDos, String mensaje) {
+    public static void validarDiferente(String valorUno, String valorDos, String mensaje) {
         if (valorUno.equals(valorDos)) {
             throw new ExcepcionValorInvalido(mensaje);
         }

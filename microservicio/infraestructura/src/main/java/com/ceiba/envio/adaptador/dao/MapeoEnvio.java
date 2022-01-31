@@ -13,8 +13,8 @@ public class MapeoEnvio implements RowMapper<DtoEnvio>, MapperResult {
     public DtoEnvio mapRow(ResultSet resultSet, int rowNum) throws SQLException {
 
         Long id = resultSet.getLong("id");
-        Long remitente = resultSet.getLong("remitente");
-        Long destinatario = resultSet.getLong("destinatario");
+        String remitente = resultSet.getString("remitente");
+        String destinatario = resultSet.getString("destinatario");
         Long zona = resultSet.getLong("zona");
         Boolean envioPlus = resultSet.getBoolean("envio_plus");
         Long pesoCarga = resultSet.getLong("peso_carga");

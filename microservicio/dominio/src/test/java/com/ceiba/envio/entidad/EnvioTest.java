@@ -20,8 +20,8 @@ class EnvioTest {
         Envio envio = new EnvioTestDataBuilder().conId(1L).conEnvioPlus(null).build();
         //assert
         assertEquals(1, envio.getId());
-        assertEquals(1, envio.getRemitente());
-        assertEquals(2, envio.getDestinatario());
+        assertEquals("123456", envio.getRemitente());
+        assertEquals("654321", envio.getDestinatario());
         assertEquals(Boolean.FALSE, envio.getEnvioPlus());
         assertNotNull(envio.getFechaCreacion());
     }
@@ -73,7 +73,7 @@ class EnvioTest {
     @Test
     void deberiaFallarRemitenteYDestinatarioIgualesDeEnvio() {
         //Arrange
-        EnvioTestDataBuilder envioTestDataBuilder = new EnvioTestDataBuilder().conDestinatario(1L);
+        EnvioTestDataBuilder envioTestDataBuilder = new EnvioTestDataBuilder().conDestinatario("123456");
         //act-assert
         BasePrueba.assertThrows(() -> {
                     envioTestDataBuilder.build();

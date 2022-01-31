@@ -2,6 +2,8 @@ package com.ceiba.envio.servicio.base;
 
 import com.ceiba.dominio.excepcion.ExcepcionNoEncontrado;
 import com.ceiba.envio.modelo.entidad.Envio;
+import com.ceiba.usuario.modelo.dto.DtoUsuario;
+import com.ceiba.usuario.puerto.dao.DaoUsuarioPorDocumento;
 import com.ceiba.usuario.puerto.repositorio.RepositorioUsuario;
 import com.ceiba.zona.modelo.dto.DtoZona;
 import com.ceiba.zona.puerto.dao.DaoZonaPorId;
@@ -24,18 +26,18 @@ public class ServicioBaseEnvio {
     private static final Long UN_DIA = 1L;
     private static final Long DOS_DIAS = 2L;
 
-    private final RepositorioUsuario repositorioUsuario;
+    private final DaoUsuarioPorDocumento daoUsuarioPorDocumento;
     private  final DaoZonaPorId daoZonaPorId;
 
-    public ServicioBaseEnvio(RepositorioUsuario repositorioUsuario, DaoZonaPorId daoZonaPorId) {
-        this.repositorioUsuario = repositorioUsuario;
+    public ServicioBaseEnvio(DaoUsuarioPorDocumento daoUsuarioPorDocumento, DaoZonaPorId daoZonaPorId) {
+        this.daoUsuarioPorDocumento = daoUsuarioPorDocumento;
         this.daoZonaPorId = daoZonaPorId;
     }
 
-    protected void validarExistenciaPreviaUsuario(Long idUsuario, String usuario) {
-        boolean existe = this.repositorioUsuario.existePorId(idUsuario);
-        if(!existe) {
-            throw new ExcepcionNoEncontrado(String.format(EL_DATO_NO_EXISTE_EN_EL_SISTEMA, usuario));
+    protected void validarExistenciaPreviaUsuario(String idDocumento, String mensajeUsuario) {
+        DtoUsuario usuario = this.daoUsuarioPorDocumento.encontrarPorDocumento(idDocumento);
+        if(usuario == null) {
+            throw new ExcepcionNoEncontrado(String.format(EL_DATO_NO_EXISTE_EN_EL_SISTEMA, mensajeUsuario));
         }
     }
 
